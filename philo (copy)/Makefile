@@ -11,11 +11,16 @@ OBJS = $(SRCS:.c=.o)
 #FLAGS
 CC = cc
 CFLAGS = -fsanitize=thread -Wall -Wextra -Werror -g
+#VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes
 
 #COMMANDS
 RM = rm -rf
 
 #RULES
+valgrind: all
+	@echo "$(CYAN)---> RUNNING VALGRIND WITH ARGS: 🔎 <---$(ARGS)"
+	valgrind $(VALGRIND_FLAGS) ./philo $(ARGS)
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
