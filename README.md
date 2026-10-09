@@ -1,107 +1,88 @@
-# philosophers-42 🍝
+# Philosophers
 
-## What is philosophers ⁉️
+An implementation of the Dining Philosophers problem using threads and mutexes.
 
-The **philosophers** project at 42 is a concurrency and synchronization challenge based on the classic **Dining Philosophers Problem**. The goal is to simulate philosophers sitting around a table, alternating between eating, sleeping, and thinking while sharing a limited number of forks. This project introduces important concepts such as multithreading, mutexes, synchronization, race conditions, and resource management.
+Developed as part of the 42 curriculum, the project explores concurrency, synchronization, shared resources, and race conditions.
 
----
+## About
 
-## Key points 🔑
+A group of philosophers sits around a table with one fork between each philosopher.
 
-### Multithreading
+Each philosopher repeatedly needs to:
 
-Each philosopher is represented by an independent thread running concurrently, performing its own cycle of eating, sleeping, and thinking.
-
-### Mutex Synchronization
-
-Forks are protected using **mutexes**, ensuring that only one philosopher can hold a fork at a time. This prevents data races and guarantees thread-safe execution.
-
-### Dining Philosophers Problem
-
-The implementation must avoid common concurrency issues such as:
-
-- Deadlocks
-- Race conditions
-- Starvation
-
-while ensuring that philosophers can continue their routine correctly.
-
-### Time Management
-
-The simulation accurately tracks:
-
-- Time to die
-- Time to eat
-- Time to sleep
-
-A philosopher dies if they fail to eat before the configured time limit.
-
-### Monitoring
-
-A dedicated monitoring routine continuously checks the philosophers' state to determine if one has died or if every philosopher has eaten the required number of meals (when specified).
-
-### Input and Validation
-
-The program validates all input arguments, ensuring:
-
-- Positive integer values only
-- Correct number of arguments
-- Valid simulation parameters
-
----
-
-## Conclusion ✅
-
-The **philosophers** project is an excellent introduction to concurrent programming. It teaches synchronization techniques, mutex handling, thread management, timing accuracy, and how to solve resource-sharing problems safely and efficiently.
-
----
-
-# How to run
-
-### 1 - Clone
-
-```bash
-git clone https://github.com/Daviddm03/philosophers-42.git
+```text
+eat → sleep → think
 ```
 
-### 2 - Navigate to the directory
+To eat, a philosopher must acquire two forks.
+
+Because the philosophers run concurrently, access to shared resources must be synchronized correctly to prevent race conditions and avoid invalid states.
+
+Each philosopher is represented by a thread and the shared forks are protected using mutexes.
+
+## Getting Started
+
+### Requirements
+
+- GCC or Clang
+- Make
+- POSIX threads
+- A Unix-like environment
+
+Clone the repository:
 
 ```bash
-cd philosophers-42
+git clone git@github.com:Daviddm03/philo.git
+cd philo
+cd "philo (copy)"
 ```
 
-### 3 - Compile the program
+Compile:
 
 ```bash
 make
 ```
 
-### 4 - Run the simulation
+## Usage
 
-```bash
+The program accepts:
+
+```text
 ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
 ```
 
-### Example
+Times are provided in milliseconds.
+
+Example:
 
 ```bash
 ./philo 5 800 200 200
 ```
 
-or
+With an optional meal limit:
 
 ```bash
 ./philo 5 800 200 200 7
 ```
 
----
+The simulation stops when a philosopher dies or when the required number of meals has been completed.
 
-## Example Output
+Clean or rebuild:
 
-```text
-0 1 has taken a fork
-0 1 has taken a fork
-0 1 is eating
-200 1 is sleeping
-400 1 is thinking
+```bash
+make clean
+make fclean
+make re
 ```
+
+## What I Learned
+
+This project was mainly about synchronization.
+
+Working with multiple threads accessing the same resources made race conditions much more concrete than they had been in previous projects.
+
+It also required careful handling of mutexes, timing, thread lifecycle, and shared state so that the simulation remained consistent while several philosophers were running at the same time.
+
+## Tech
+
+C · POSIX Threads · Mutexes · Concurrency · Makefile
